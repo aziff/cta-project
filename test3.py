@@ -16,6 +16,11 @@ def load_stop_data(csv):
     frames = len(thisx)
     return (thisx, thisy, frames)
     
+def load_interval_data(csv):
+    data = genfromtxt(csv, delimiter = ",")
+    intervals = data[0]
+    return intervals
+    
 def init():
     patch.center = (-10, -10)
     ax.add_patch(patch)
@@ -26,6 +31,8 @@ def animate(i):
     x = thisx[i]
     y = thisy[i]
     patch.center = (x, y)
+    #intervals = load_interval_data("time172.csv")
+    #current_interval = intervals[i]
     return patch,
     
 data = load_stop_data("172routes.csv")
@@ -41,13 +48,12 @@ ax = plt.axes(xlim=(0, 1), ylim=(0, 1))
 plt.scatter(thisx, thisy)
 plt.plot(thisx, thisy, 'r')
 
-patch1 = plt.Circle((.5, -.5), 0.01, fc='y')
-patch2 = plt.Circle((.5, -.5), 0.01, fc='y')
+patch = plt.Circle((.5, -.5), 0.01, fc='y')
 
 anim = animation.FuncAnimation(fig, animate, 
                                init_func=init, 
                                frames=16, 
-                               interval=1000,
+                               interval=100,
                                blit=True,
                                repeat=True)
                                                      
