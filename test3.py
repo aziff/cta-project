@@ -10,9 +10,6 @@ from numpy import genfromtxt
 import math
 from time import time
 
-current_interval = 1000 # Initialize interval value
-#current_iteration = 0
-
 
 def load_stop_data(csv):
     data2 = genfromtxt(csv, delimiter = ",")
@@ -36,14 +33,18 @@ def init():
     return patch,
 
 def animate(i):
+    print "before"                                                 
+    print a
+    #global current_interval
+    #current_interval = int(intervals[i])
+    global a
+    a = A[thisx*10]
     x, y = patch.center
     x = thisx[i]
     y = thisy[i]
     patch.center = (x, y)
-    
-    global current_interval
-    current_interval = int(intervals[i])
-    #print type(current_interval)
+    print "after"                                                 
+    print a   
     return patch, 
     
 intervals = load_interval_data("time172.csv")
@@ -63,19 +64,17 @@ plt.plot(thisx, thisy, 'r')
 patch = plt.Circle((.5, -.5), 0.01, fc='y')
 intervals = load_interval_data("time172.csv")
 
-animate(0)
-animate(1)
-
-#print "transformed current_interval"
-#print current_interval
+current_interval = 100
+A = [1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000,16000]
+a = A[0]
 
 anim = animation.FuncAnimation(fig, animate, 
                                init_func=init, 
                                frames=frames, 
-                               interval=current_interval,
+                               interval=a,
                                blit=True,
                                repeat=True)
-                                                     
+
 
 plt.show()
 
