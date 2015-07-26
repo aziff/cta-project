@@ -7,19 +7,28 @@ from matplotlib import pyplot as plt
 from matplotlib import animation
 from numpy import genfromtxt
 
+import math
+from time import time
+
+current_interval = 1000 # Initialize interval value
+#current_iteration = 0
+
 
 def load_stop_data(csv):
     data2 = genfromtxt(csv, delimiter = ",")
     t_data2 = np.transpose(data2)
     thisx = t_data2[0]
+    print "thisx"
+    print thisx
     thisy = t_data2[1]
+    print "thisy"
+    print thisy
     frames = len(thisx)
     return (thisx, thisy, frames)
     
 def load_interval_data(csv):
     data = genfromtxt(csv, delimiter = ",")
-    intervals = data[0]
-    return intervals
+    return data
     
 def init():
     patch.center = (-10, -10)
@@ -31,10 +40,13 @@ def animate(i):
     x = thisx[i]
     y = thisy[i]
     patch.center = (x, y)
-    #intervals = load_interval_data("time172.csv")
-    #current_interval = intervals[i]
-    return patch,
     
+    global current_interval
+    current_interval = int(intervals[i])
+    #print type(current_interval)
+    return patch, 
+    
+intervals = load_interval_data("time172.csv")
 data = load_stop_data("172routes.csv")
 thisx = data[0]
 thisy = data[1]
@@ -49,11 +61,18 @@ plt.scatter(thisx, thisy)
 plt.plot(thisx, thisy, 'r')
 
 patch = plt.Circle((.5, -.5), 0.01, fc='y')
+intervals = load_interval_data("time172.csv")
+
+animate(0)
+animate(1)
+
+#print "transformed current_interval"
+#print current_interval
 
 anim = animation.FuncAnimation(fig, animate, 
                                init_func=init, 
-                               frames=16, 
-                               interval=100,
+                               frames=frames, 
+                               interval=current_interval,
                                blit=True,
                                repeat=True)
                                                      
