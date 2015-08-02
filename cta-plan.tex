@@ -1,0 +1,64 @@
+\documentclass{article}
+
+\begin{document}
+
+\title{CTA Project Plan}
+\author{Mythili Vinnakota \and Anna Ziff}
+\date{\today}
+\maketitle
+
+\section{Research Questions}
+
+\subsection{Bunching}
+\begin{itemize}
+	\item How much deviation from the standard route highly predicts for bunching?
+	\item How does this change when different parameters are marginally changed?
+\end{itemize}
+
+
+\section{Data}
+
+\subsection{From CTA}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{ c | c | c | c | c | c | c }
+Route & StopID & TimeStamp & Prediction & BusID & Arrival & Boarding Passengers \\
+\hline
+171 & 1659 & 20150228 07:07 & 20150228 07:10 & 4189 & 20150228 07:11 & 4 \\
+171 & 4872 & 20150228 07:06 & 20150228 07:10 & 4310 & 20150228 07:10 & 1 \\
+171 &14483 & 20150228 07:06	& 20150228 07:12 & 4317 & 20150228 07:11 & 2 \\
+172 & ... & ... & ... & ... & ... & ... \\
+...  & ... & ... & ... & ... & ... & ... 
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{From API}
+
+Exact locations of the stops to make scaled representations of the routes
+
+\subsection{Descriptives}
+
+\begin{itemize}
+	\item Number of observations by bus, stop, day, etc.
+	\item Codebook for data
+	\item Scaled map of actual routes
+	\item Heat map of where the most number of riders board
+	\item Distribution of time when the busses are used
+	\item Deviation from planned schedule
+	\item Arrival time using the prediction
+\end{itemize}
+
+\section{Timeline}
+
+\begin{description}	
+	\item[August 7:]{Get data, with luck. Coordinate with Lenny}
+	\item[August 8/August 9:]{Clean data, start descriptives}
+	\item[August 11:]{Have most of descriptives done. Send Lenny report}
+	\item[After August 12:]{Skype with Lenny and re-assess}
+	\item[September 25:]{Full draft}
+\end{description}
+
+
+\end{document}
