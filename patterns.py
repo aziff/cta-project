@@ -12,10 +12,6 @@ import csv
 import xml.etree.ElementTree as ET
 import os
 
-# Stop ID's
-#stops_171 = '15919,10567,14033,14019,15433,16036,10563,1520'
-#stops_172 = '1523,15817,14033,14019,15433,14040,14039,16124'
-
 # Direction
 directions = 'Northbound','Southbound'
 
@@ -25,11 +21,11 @@ KUTAH= "hm4pjNYb4WFp9zS44ppn9EceY"
 
 BEGURL= "http://www.ctabustracker.com/bustime/api/v1/"
 
-HEADER= 'stpid','stpnm','lat','lon'
+HEADER= 'stpid','stpnm','lat','lon', 'type'
 
 # Make string to get stop locations
-def get_stops(route, key, direction):
-  request = BEGURL + "getstops?key=" + key + "&rt=" + route + "&dir=" + direction
+def get_stops(route, key):
+  request = BEGURL + "getpatterns?key=" + key + "&rt=" + route
   return request
 
 # Construct the XML file
@@ -44,33 +40,32 @@ def make_xml(xmlname, request_function):
 def parse_xml(xmlfile_stops, csvfile):
   tree_stop = ET.parse(xmlfile_stops)
   root_stop = tree_stop.getroot()
-  print(root_stop)
   header = HEADER
   with open(csvfile, 'a') as f:
     writer = csv.writer(f)
     writer.writerow(header)
     
-    for prd in root_stop.findall('stop'):
-      print "prd"
-      print prd
-      stpid = prd.findtext('stpid')
-      stpnm = prd.findtext('stpnm')
-      lat = prd.findtext('lat')
-      lon = prd.findtext('lon')
-      row = stpid, stpnm, lat, lon
+    for ptr in root_stop.findall('ptr'):
+      for prd in ptr.findall('pt'):
+        stpid = prd.findtext('stpid')
+        stpnm = prd.findtext('stpnm')
+        lat = prd.findtext('lat')
+        lon = prd.findtext('lon')
+        type = prd.findtext('typ')
+        row = stpid, stpnm, lat, lon, type
       
-      writer.writerow(row)
+        writer.writerow(row)
   return
 
 
 '''
 Running this block of code gets the XML files and puts them into .csv files
 '''
-for dir in directions:
-    stops171_xml = make_xml(dir+'171-stops.xml', get_stops('171',ANNA, dir))
-    stops172_xml = make_xml(dir+'172-stops.xml', get_stops('172',ANNA, dir))
-    parse_xml(stops171_xml, dir+'171stops.csv')
-    parse_xml(stops172_xml, dir+'172stops.csv')
+
+stops171_xml = make_xml('P171-stops.xml', get_stops('171',ANNA))
+stops172_xml = make_xml('P172-stops.xml', get_stops('172',ANNA))
+parse_xml(stops171_xml, 'P171stops.csv')
+parse_xml(stops172_xml, 'P172stops.csv')
 
 
 
