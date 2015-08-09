@@ -1,13 +1,14 @@
 import csv
 
 
-def import_csv(csv):
+def import_csv():
   data = []
-  with open(csv) as csvfile:
-    reader = csv.reader(csvfile, delimiter=',')
-    for row in reader:
-      data.append(row)
+  r = csv.reader(open('171schedule.csv','rt',newline=''), dialect='excel')
+  for l in r:
+    data.append(l)  
+  return data
+
       
       
-if __name__ == "__main__":
-  import_csv('171schedule.csv')
+if __name__ == '__main__':
+  import_csv()
