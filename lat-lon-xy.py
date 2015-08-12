@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 def get_x_y(csv):
-    stops = genfromtxt(csv, delimiter = ",")
+    stops = genfromtxt(csv, delimiter = ",",invalid_raise=False)
     lat1 = 41.78588506 # The origin is the most southwest stop (60/Ellis)
     lon1 = -87.60104835
     x = []

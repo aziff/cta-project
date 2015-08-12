@@ -33,8 +33,8 @@ def animate(i):
     #current_interval = int(intervals[i])
     global current_interval
     current_interval = int(intervals[i])
-    print "current_interval"
-    print current_interval
+    print("current_interval")
+    print(current_interval)
     x, y = patch.center
     x = thisx[i]
     y = thisy[i]
@@ -62,11 +62,9 @@ patch = plt.Circle((.5, -.5), 0.01, fc='y')
 anim = animation.FuncAnimation(fig, animate, 
                                init_func=init, 
                                frames=frames, 
-                               interval=,
+                               interval=1000,
                                blit=True,
                                repeat=True)
-
-
 
 
 
