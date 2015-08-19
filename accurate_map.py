@@ -11,7 +11,15 @@ import math
 from time import time
 
 import csv
+
+from matplotlib import __version__
+print("matplotlib version: {}".format(__version__))
+import os
+os.system('ffmpeg')
+
 #====================================
+
+
 info_171 = []
 with open('P171stops.csv', 'rU') as csvfile:
         spamreader = csv.reader(csvfile, delimiter = ',')
@@ -22,8 +30,9 @@ info_172 = []
 with open('P172stops.csv', 'rU') as csvfile:
         spamreader = csv.reader(csvfile, delimiter = ',')
         for row in spamreader: 
-            info_172.append(row)  
-
+            info_172.append(row)
+            
+  
 
 #Anna's Code from lat-lon-x-y.py, edited to add stop information
 def get_x_y(info_array):
@@ -64,7 +73,10 @@ def get_x_y(info_array):
             if info_array[row][0] not in stop_dict:
                 stop_dict[info_array[row][0]] = ((dx, dy),order, i)
                 order+=1
-                i+=2
+                #i += 2 # THIS MAKES time at each stop CHANGE
+                # Calculate amount of time at each stop
+            	# Eventually make a function that takes arrival times and makes an array/dit
+            	# that maps stopID to number i
                     
     return (x,y, x_stops, y_stops, stop_dict)
 
@@ -83,12 +95,12 @@ def make_lists_from_dict(get_output):
         for key in dict:  
             if dict[key][1] == index:
                 x.extend([dict[key][0][0] for i in range(dict[key][2])])
-                y.extend([dict[key][0][1] for i in range(dict[key][2])])               
+                y.extend([dict[key][0][1] for i in range(dict[key][2])])  
+        print len(dict)            
     return (x,y)     
   
 
 animation_points_171 = make_lists_from_dict(pattern171)
-print animation_points_171[0]
 
 
 
@@ -123,6 +135,8 @@ def animate(i):
     patch2.center = (x2, y2)
      
     return (patch, patch2)
+    
+
 
 fig = plt.figure()
 fig.set_dpi(100)
@@ -146,6 +160,11 @@ anim = animation.FuncAnimation(fig, animate,
                                interval=100,
                                blit=True,
                                repeat=True)
+             
+                            
+Writer = animation.writers['ffmpeg']
+writer = Writer(fps=15, metadata=dict(artist='Me'), bitrate=1800)                
+anim.save('the_movie.mp4', writer = writer)
 
 
 plt.show()
