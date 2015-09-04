@@ -18,8 +18,13 @@ import os
 os.system('ffmpeg')
 
 #====================================
+#Define lat and lon constants
+lat1 = 41.78588506 # The origin is the most southwest stop (60/Ellis)
+lon1 = -87.60104835
+
 
 #Read in the stop information from the CSV files
+'''
 info_171 = []
 with open('P171stops.csv', 'rU') as csvfile:
         spamreader = csv.reader(csvfile, delimiter = ',')
@@ -31,8 +36,16 @@ with open('P172stops.csv', 'rU') as csvfile:
         spamreader = csv.reader(csvfile, delimiter = ',')
         for row in spamreader:
             info_172.append(row)
+'''
 
-
+#Abstracted version of the above code
+def import_data(filename):
+    data = []
+    with open(filename, 'rU') as csvfile:
+        reader = csv.reader(csvfile, delimiter = ',')
+        for row in reader:
+            data.append(row)
+    return data
 
 #Anna's Code from lat-lon-x-y.py, edited to add stop information
 def get_x_y(info_array):
@@ -43,36 +56,33 @@ def get_x_y(info_array):
         if info_array[row][4] == 'W' or info_array[row][4] == 'S':
             copy.append(info_array[row])
 
-    #Set up for conversion from latitude/longitude
+
     #Also, make a dictionary to restructure the information
-    lat1 = 41.78588506 # The origin is the most southwest stop (60/Ellis)
-    lon1 = -87.60104835
-    x = []
-    y = []
-    x_stops = []
-    y_stops = []
+    x, y, x_stops, y_stops = [], [], [], []
     stop_dict = {}
-    #name = []
 
     i = 1
     order = 1
-
     #Loop through and convert
     for row in range(1,len(copy)):
+
+        #Convert lat and lon
         lat2 = float(copy[row][2])
         lon2 = float(copy[row][3])
 
         dx = (lon2-lon1)*40000*math.cos((lat1+lat2)*math.pi/360)/360
         dy = ((lat1-lat2)*40000/360) * -1
+
+        #add converted coordinates to x and y arrays
         x.append(dx)
         y.append(dy)
-        #name.append(info_array[s][0])
 
-
+        #if stop, also add to x and y stop arrays
         if info_array[row][4] == 'S':
             x_stops.append(dx)
             y_stops.append(dy)
 
+            #add stop id to dictionary as key
             if info_array[row][0] not in stop_dict:
                 stop_dict[info_array[row][0]] = ((dx, dy),order, i)
                 order+=1
@@ -83,25 +93,25 @@ def get_x_y(info_array):
 
     return (x,y, x_stops, y_stops, stop_dict)
 
-
-#get_x_y is giving us a list of lists with the latitude and longitude
-pattern171 = get_x_y(info_171)
-pattern172 = get_x_y(info_172)
-
-
+#make lists of x and y IN ORDER, including multiples
 def make_lists_from_dict(get_output):
     dict = get_output[4]
-    x = []
-    y = []
+    x,y = [], []
 
     for index in range(len(dict)):
         for key in dict:
             if dict[key][1] == index:
                 x.extend([dict[key][0][0] for i in range(dict[key][2])])
                 y.extend([dict[key][0][1] for i in range(dict[key][2])])
-        print len(dict)
     return (x,y)
 
+#==========================
+
+info_171 = import_data('P171stops.csv')
+info_172 = import_data('P172stops.csv')
+
+pattern171 = get_x_y(info_171)
+pattern172 = get_x_y(info_172)
 
 anim_points_171_1 = make_lists_from_dict(pattern171)
 anim_points_172_1 = make_lists_from_dict(pattern172)
@@ -173,9 +183,8 @@ def animate(i):
 fig = plt.figure()
 fig.set_dpi(100)
 fig.set_size_inches(.7, .65)
-
-
 ax = plt.axes(xlim=(-0.5, 2), ylim=(-0.5, 2.5))
+
 patch1 = plt.Circle((.5, -.5), 0.05, fc='y')
 patch2 = plt.Circle((.5, -.5), 0.05, fc='b')
 patch3 = plt.Circle((.5, -.5), 0.05, fc='r')
@@ -192,8 +201,8 @@ plt.plot(patx172, paty172, 'c')
 
 anim = animation.FuncAnimation(fig, animate,
                                init_func=init,
-                               frames = 100,
-                               interval=100,
+                               frames = 1000,
+                               interval=10,
                                blit=True,
                                repeat=True)
 
