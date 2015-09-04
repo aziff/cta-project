@@ -161,10 +161,7 @@ anim = animation.FuncAnimation(fig, animate,
                                blit=True,
                                repeat=True)
              
-                            
-Writer = animation.writers['ffmpeg']
-writer = Writer(fps=15, metadata=dict(artist='Me'), bitrate=1800)                
-anim.save('the_movie.mp4', writer = writer)
+                        
 
 
 plt.show()
