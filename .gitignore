@@ -1,0 +1,13 @@
+*.csv
+*.dta
+*.xlsx
+
+*.doc
+*.docx
+
+*.aux
+*.out
+*.pdf
+
+*.MOV
+*.mov
