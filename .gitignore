@@ -11,3 +11,5 @@
 
 *.MOV
 *.mov
+
+scrape/__pycache__/*
