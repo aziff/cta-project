@@ -26,13 +26,13 @@ lon1 = -87.60104835
 #Read in the stop information from the CSV files
 '''
 info_171 = []
-with open('P171stops.csv', 'rU') as csvfile:
+with open('../../data/processed/P171stops.csv', 'rU') as csvfile:
         spamreader = csv.reader(csvfile, delimiter = ',')
         for row in spamreader:
             info_171.append(row)
 
 info_172 = []
-with open('P172stops.csv', 'rU') as csvfile:
+with open('../../data/processed/P172stops.csv', 'rU') as csvfile:
         spamreader = csv.reader(csvfile, delimiter = ',')
         for row in spamreader:
             info_172.append(row)
@@ -107,8 +107,8 @@ def make_lists_from_dict(get_output):
 
 #==========================
 
-info_171 = import_data('P171stops.csv')
-info_172 = import_data('P172stops.csv')
+info_171 = import_data('../../data/processed/P171stops.csv')
+info_172 = import_data('../../data/processed/P172stops.csv')
 
 pattern171 = get_x_y(info_171)
 pattern172 = get_x_y(info_172)

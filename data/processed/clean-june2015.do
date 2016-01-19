@@ -6,7 +6,7 @@
 * Current version: 	January 16, 2016
 * ---------------------------------------------------------------------------- *
 
-cd ~/Desktop/fun/cta-project
+cd ~/Desktop/fun/cta-project/data/raw
 
 import delim using "june2015", clear delim("|")
 
@@ -30,4 +30,5 @@ rename v4 stopID
 
 * ---------------------------------------------------------------------------- *
 
+cd ../processed
 export delim using "cleaned-june2015", replace delim(",")

@@ -1,6 +1,6 @@
 #!/bin/bash
 n=1
-while [ $n -le 120 ]
+while [ $n -le 3 ]
 do
 echo "$n"
 python2.7 scrape-api.py
