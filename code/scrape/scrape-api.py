@@ -38,15 +38,12 @@ if __name__ == '__main__':
 
     for i in stops_171:
         pred171_xml = make_xml('output/171-test-pred.xml', get_predictions('171',MYTHILI, i))
-        print "new loop 171"
-        print i
 
         time_xml = make_xml('output/171-test-time.xml',get_time(KUTAH))
         parse_xml(time_xml, pred171_xml, csv_name171)
 
     for i in stops_172:
         pred172_xml = make_xml('output/172-test-pred.xml', get_predictions('172',ANNA, i))
-        print i
 
         time_xml = make_xml('output/171-test-time.xml',get_time(KUTAH))
         parse_xml(time_xml, pred172_xml, csv_name172)
