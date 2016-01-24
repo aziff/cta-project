@@ -1,6 +1,7 @@
 *.csv
 *.dta
 *.xlsx
+*.xml
 
 *.doc
 *.docx
@@ -8,6 +9,24 @@
 *.aux
 *.out
 *.pdf
+*.toc
+*.fls
+*.lot
+*.log
+*.lof
+*.bbl
+*.bcf
+*.blg
 
 *.MOV
 *.mov
+
+*.pyc
+
+scrape/__pycache__/*
+.DS_Store
+.Rapp.history
+
+
+
+
