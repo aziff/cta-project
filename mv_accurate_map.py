@@ -49,7 +49,7 @@ def import_data(filename):
 
 #Anna's Code from lat-lon-x-y.py, edited to add stop information
 def get_x_y(info_array):
-    print info_array
+    #print info_array
     #make a copy and delete extraneous rows
     copy = []
     for row in range(0, len(info_array)):
