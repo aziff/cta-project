@@ -28,3 +28,4 @@ scrape/__pycache__/*
 .Rapp.history
 
 data/processed/*
+code/scrape/output/*
