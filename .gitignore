@@ -26,3 +26,5 @@
 scrape/__pycache__/*
 .DS_Store
 .Rapp.history
+
+data/processed/*
