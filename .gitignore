@@ -29,3 +29,5 @@ scrape/__pycache__/*
 
 data/processed/*
 code/scrape/output/*
+
+data/scraped-raw/*
