@@ -31,7 +31,6 @@ def get_files(raw_dir):
       file_list.append(full_file)
   return file_list
 
-
 # Loop through .csv files that are in the folder
 # read them in
 
