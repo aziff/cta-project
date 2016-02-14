@@ -17,6 +17,7 @@
 *.bbl
 *.bcf
 *.blg
+*.dvi
 
 *.MOV
 *.mov
