@@ -16,6 +16,7 @@ from matplotlib import __version__
 print("matplotlib version: {}".format(__version__))
 import os
 os.system('ffmpeg')
+    
 
 #====================================
 #Define lat and lon constants
